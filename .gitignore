@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+### Emacs ###
+*~
+/temp
+/.vscode
+/module.config.js
+
+.eslintcache
+.idea
+dist/
