@@ -1,4 +1,9 @@
 import React from 'react';
 
-const Login = () => <h1>hi Login</h1>;
+const Login = () => {
+
+console.log("Login component");
+debugger
+return (<h1>hi Login</h1>)
+};
 export default Login;
