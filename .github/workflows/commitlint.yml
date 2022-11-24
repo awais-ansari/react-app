@@ -6,5 +6,24 @@ on:
   - pull_request
 
 jobs:
-  commitlint:
-    uses: openedx/.github/.github/workflows/commitlint.yml@master
+ commitlint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          # Fetch 100 commits.  Should be enough?
+          fetch-depth: 100
+
+      - name: Check for a local configuration file
+        id: check
+        run: |
+          if [[ ! -f commitlint.config.js ]]; then
+            echo "::set-output name=need::yes"
+          fi
+      - name: Download configuration if needed
+        if: steps.check.outputs.need == 'yes'
+        run: |
+          wget --no-verbose -O commitlint.config.js https://raw.githubusercontent.com/openedx/edx-lint/HEAD/edx_lint/files/commitlint.config.js
+      - name: Run commitlint
+        uses: wagoid/commitlint-github-action@v4
